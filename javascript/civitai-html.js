@@ -253,34 +253,50 @@ function pressRefresh() {
     }, 200);
 }
 
-// // Update SVG Icons based on dark theme or light theme
-// function updateSVGIcons() {
-//     const isDark = document.body.classList.contains('dark');
-//     const filterIconUrl = isDark ? "https://gistcdn.githack.com/BlafKing/a20124cedafad23d4eecc1367ec22896/raw/04a4dae0771353377747dadf57c91d55bf841bed/filter-light.svg" : "https://gistcdn.githack.com/BlafKing/686c3438f5d0d13e7e47135f25445ef3/raw/46477777faac7209d001829a171462d9a2ff1467/filter-dark.svg";
+// Update SVG Icons based on dark theme or light theme
+function updateSVGIcons() {
+    const isDark = document.body.classList.contains('dark');
+    const filterIconUrl = isDark ? "https://gistcdn.githack.com/BlafKing/a20124cedafad23d4eecc1367ec22896/raw/04a4dae0771353377747dadf57c91d55bf841bed/filter-light.svg" : "https://gistcdn.githack.com/BlafKing/686c3438f5d0d13e7e47135f25445ef3/raw/46477777faac7209d001829a171462d9a2ff1467/filter-dark.svg";
     
-//     if (isDark) {
+    if (isDark) {
         
-//     }
+    }
 
-//     const element = document.querySelector("#filterBox, #filterBoxL");
-//     const childDiv = element?.querySelector("div:nth-child(3)");
+    const element = document.querySelector("#filterBox, #filterBoxL");
+    const childDiv = element?.querySelector("div:nth-child(3)");
 
-//     if (childDiv) {
-//         childDiv.style.cssText = `box-shadow: ${isDark ? '#ffffff' : '#000000'} 0px 0px 2px 0px; display: none;`;
-//     }
+    if (childDiv) {
+        childDiv.style.cssText = `box-shadow: ${isDark ? '#ffffff' : '#000000'} 0px 0px 2px 0px; display: none;`;
+    }
 
-//     const style = document.createElement('style');
-//     style.innerHTML = `
-//         #filterBox > div:nth-child(2) > span:nth-child(2)::before,
-//         #filterBoxL > div:nth-child(2) > span:nth-child(2)::before {
-//             background: url('${filterIconUrl}') no-repeat center center;
-//             background-size: contain;
-//         }
-//     `;
-//     document.head.appendChild(style);
+    const style = document.createElement('style');
+    style.innerHTML = `
+        #filterBox > div:nth-child(2) > span:nth-child(2)::before,
+        #filterBoxL > div:nth-child(2) > span:nth-child(2)::before {
+            background: url('${filterIconUrl}') no-repeat center center;
+            background-size: contain;
+        }
+        
+        #refreshBtn > img,
+        #refreshBtnL > img {
+            content: url('${searchIconUrl}');
+        }
+            
+        /* Gradio 4 */
+        #filterBox > button:nth-child(2),
+        #filterBoxL > button:nth-child(2) {
+            background: url('${filterIconUrl}') no-repeat center center !important;
+            background-size: 22px !important;
+        }
+        #filterBox > button:nth-child(2) > span,
+        #filterBoxL > button:nth-child(2) > span {
+            visibility: hidden;
+        }
+    `;
+    document.head.appendChild(style);
 
-//     const refreshBtn = document.querySelector("#refreshBtn, #refreshBtnL");
-// }
+    
+}
 
 // Creates a tooltip if the user wants to filter liked models without a personal API key
 function createTooltip(element, hover_element, insertText) {
@@ -303,7 +319,7 @@ function createTooltip(element, hover_element, insertText) {
 // Function that closes filter dropdown if clicked outside the dropdown
 function setupClickOutsideListener() {
     var filterBox = document.getElementById("filterBoxL") || document.getElementById("filterBox");
-    var filterButton = filterBox.getElementsByTagName("div")[1];
+    var filterButton = filterBox.children[1];
     var dropDown = filterBox.getElementsByTagName("div")[2];
 
     function clickOutsideHandler(event) {
