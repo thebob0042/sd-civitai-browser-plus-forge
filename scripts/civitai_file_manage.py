@@ -1151,7 +1151,10 @@ def file_scan(folders, ver_finish, tag_finish, installed_finish, preview_finish,
             completed_tags += 1
             if progress != None:
                 progress(completed_tags / tag_count, desc=f'Saving tags{" & HTML" if preview_html else ""}... {completed_tags}/{tag_count} | {name}')
-            sub_folder = os.path.normpath(os.path.relpath(install_path, gl.main_folder))
+            try:
+                sub_folder = os.path.normpath(os.path.relpath(install_path, gl.main_folder))
+            except:
+                sub_folder = None
             save_model_info(install_path, file_name, sub_folder, preview_html=preview_html, api_response=api_response, overwrite_toggle=overwrite_toggle)
         if progress != None:
             progress(1, desc=f"All tags succesfully saved!")
